@@ -43,3 +43,7 @@ type Status struct {
 	Memory   memory.Amount
 	ExitCode int
 }
+
+func IEStatus() *Status {
+	return &Status{Verdict: VerdictIE}
+}

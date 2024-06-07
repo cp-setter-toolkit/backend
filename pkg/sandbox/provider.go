@@ -1,17 +1,17 @@
 package sandbox
 
 type ChanProvider struct {
-    sandboxes chan Sandbox
+	sandboxes chan Sandbox
 }
 
 func NewChanProvider() *ChanProvider {
-    return &ChanProvider{make(chan Sandbox, 100)}
+	return &ChanProvider{make(chan Sandbox, 100)}
 }
 
-func (p *ChanProvider) Pop() (Sandbox, error) {
-    return <-p.sandboxes, nil
+func (prov *ChanProvider) Pop() (Sandbox, error) {
+	return <-prov.sandboxes, nil
 }
 
-func (p *ChanProvider) Push(s Sandbox) {
-    p.sandboxes <- s
+func (prov *ChanProvider) Push(sb Sandbox) {
+	prov.sandboxes <- sb
 }

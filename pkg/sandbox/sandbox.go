@@ -7,31 +7,30 @@ import (
 	"time"
 
 	"github.com/cp-setter-toolkit/backend/pkg/memory"
+	"github.com/spf13/afero"
 )
 
 // ErrorSandboxNotInitialized is returned when the sandbox is not initialized.
 var ErrorSandboxNotInitialized = errors.New("sandbox not initialized")
 
-// Fs is the interface for file system operations.
-type Fs interface {
-	Pwd() string
-	Path(name string) string
-	Create(name string) (io.WriteCloser, error)
-	MakeExecutable(name string) error
-	Open(name string) (io.ReadCloser, error)
-}
+type BindingOpt string
 
-type DirMapping struct {
+// https://www.ucw.cz/moe/isolate.1.html#_directory_rules
+const (
+	RW     BindingOpt = "rw"
+	DEV    BindingOpt = "dev"
+	NOEXEC BindingOpt = "noexec"
+	MAYBE  BindingOpt = "maybe"
+	FS     BindingOpt = "fs"
+	TMP    BindingOpt = "tmp"
+	NOREC  BindingOpt = "norec"
+)
+
+type DirBinding struct {
 	Inside  string
 	Outside string
+	Options []BindingOpt
 }
-
-type DirOpt string
-
-const (
-	AllowReadWrite  DirOpt = "rw"
-	DisallowExecute DirOpt = "noexec"
-)
 
 // RunConfig is the configuration for running a program in a sandbox.
 // For more information, see the man page of `isolate`.
@@ -42,26 +41,27 @@ type RunConfig struct {
 	Stdout io.Writer
 	Stderr io.Writer
 
-	MemoryLimit memory.Amount
-	TimeLimit   time.Duration
-	MaxProcs    int
+	MemLimit  memory.Amount
+	TimeLimit time.Duration
+	MaxProcs  int
 
 	InheritEnv bool
 	Env        []string
 
-	DirMappings []DirMapping
-	DirOpts     []DirOpt
-	WorkingDir  string
+	Bindings []DirBinding
+	WorkDir  string
 
 	Args []string
 }
 
 // Sandbox is used to run programs in a sandbox.
 type Sandbox interface {
-	Id() string
+	Name() string
+	Pwd() string
 	Init(ctx context.Context) error
-	Fs
-	Run(ctx context.Context, config RunConfig, cmd string, args ...string) (*Status, error)
+	afero.Fs
+	Run(ctx context.Context, config RunConfig, name string, args ...string) (*Status, error)
+	RunFile(ctx context.Context, config RunConfig, file File, args ...string) (*Status, error)
 	Cleanup(ctx context.Context) error
 }
 
@@ -71,8 +71,21 @@ type Provider interface {
 	Push(sb Sandbox)
 }
 
-// File is a named source of data.
-type File struct {
-	Name   string
-	Source io.ReadCloser
+// File is a named io.ReadCloser.
+type File interface {
+	Name() string
+	io.ReadCloser
+}
+
+func CopyFile(fs afero.Fs, src File) error {
+	dst, err := fs.Create(src.Name())
+	if err != nil {
+		return err
+	}
+	defer dst.Close()
+
+	if _, err := io.Copy(dst, src); err != nil {
+		return err
+	}
+	return src.Close()
 }
