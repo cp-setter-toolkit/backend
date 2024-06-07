@@ -17,11 +17,11 @@ const (
 func (a Amount) String() string {
 	switch {
 	case a >= GiB:
-		return strconv.FormatFloat(float64(a)/float64(GiB), 'f', 2, 64) + "GiB"
+		return strconv.FormatFloat(float64(a)/float64(GiB), 'f', 3, 64) + "GiB"
 	case a >= MiB:
-		return strconv.FormatFloat(float64(a)/float64(MiB), 'f', 2, 64) + "MiB"
+		return strconv.FormatFloat(float64(a)/float64(MiB), 'f', 3, 64) + "MiB"
 	case a >= KiB:
-		return strconv.FormatFloat(float64(a)/float64(KiB), 'f', 2, 64) + "KiB"
+		return strconv.FormatFloat(float64(a)/float64(KiB), 'f', 3, 64) + "KiB"
 	default:
 		return strconv.Itoa(int(a)) + "B"
 	}
