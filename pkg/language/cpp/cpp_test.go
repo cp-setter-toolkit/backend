@@ -1,15 +1,14 @@
 package cpp_test
 
 import (
-	// "bytes"
+	"bytes"
 	"context"
 	"io"
 	"testing"
-
-	// "time"
+	"time"
 
 	"github.com/cp-setter-toolkit/backend/pkg/language/cpp"
-	// "github.com/cp-setter-toolkit/backend/pkg/memory"
+	"github.com/cp-setter-toolkit/backend/pkg/memory"
 	"github.com/cp-setter-toolkit/backend/pkg/sandbox"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
@@ -43,23 +42,23 @@ func TestRun(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			err := sb.Init(context.TODO())
 			assert.NoError(t, err, "failed to init sandbox")
-			_, err = cpp.Std17.Compile(context.TODO(), sb, tc.files, io.Discard)
-			assert.NoError(t, err, "compilation failed")
+			file, err := cpp.Cpp17.Compile(context.TODO(), sb, tc.files, io.Discard)
+			assert.NoError(t, err, "failed to compile")
 
-			// stdin := bytes.NewBufferString("42\n")
-			// stdout := &bytes.Buffer{}
-			// config := sandbox.RunConfig{
-			// 	Stdin: stdin,
-			// 	Stdout: stdout,
-			// 	Stderr: io.Discard,
-			// 	MemLimit: 512 * memory.MiB,
-			// 	TimeLimit: 1 * time.Second,
-			// }
-			// stat, err := cpp.Std17.Run(context.TODO(), sb, config, file)
-			// assert.NoError(t, err, "failed to run command")
+			stdin := bytes.NewBufferString("42\n")
+			stdout := &bytes.Buffer{}
+			config := sandbox.RunConfig{
+				Stdin: stdin,
+				Stdout: stdout,
+				Stderr: io.Discard,
+				MemLimit: 512 * memory.MiB,
+				TimeLimit: 1 * time.Second,
+			}
+			stat, err := cpp.Cpp17.Run(context.TODO(), sb, config, file)
+			assert.NoError(t, err, "failed to run command")
 
-			// assert.Equal(t, sandbox.VerdictOK, stat.Verdict)
-			// assert.Equal(t, tc.expected, stdout.String())
+			assert.Equal(t, sandbox.VerdictOK, stat.Verdict)
+			assert.Equal(t, tc.expected, stdout.String())
 		})
 	}
 }

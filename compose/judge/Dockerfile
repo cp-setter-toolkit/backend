@@ -13,4 +13,10 @@ WORKDIR /app
 COPY pkg/ ./pkg
 COPY go.mod go.sum ./
 
+COPY compose/judge/entrypoint /entrypoint
+RUN sed -i 's/\r$//g' /entrypoint
+RUN chmod +x /entrypoint
+
 RUN go mod download && go mod verify
+
+ENTRYPOINT ["/entrypoint"]

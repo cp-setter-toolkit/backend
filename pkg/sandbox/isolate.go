@@ -117,7 +117,6 @@ func (sb *Isolate) Run(ctx context.Context, config RunConfig, name string, args 
 	isoArgs = append(isoArgs, args...)
 
 	sb.Logger.Info("🛠️\tbuilt args", "args", isoArgs)
-	fmt.Println(isoArgs)
 
 	cmd := exec.Command("isolate", isoArgs...)
 	cmd.Stdin = config.Stdin

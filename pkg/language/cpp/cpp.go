@@ -3,6 +3,7 @@ package cpp
 import (
 	"context"
 	"io"
+	"path"
 	"slices"
 	"strings"
 	"time"
@@ -42,7 +43,7 @@ func (l Cpp) Compile(ctx context.Context, sb sandbox.Sandbox, files []sandbox.Fi
 			return nil, err
 		}
 		if !strings.HasSuffix(file.Name(), ".h") {
-			args = append(args, strings.ReplaceAll(file.Name(), "/", ""))
+			args = append(args, path.Base(file.Name()))
 		}
 	}
 
@@ -72,14 +73,14 @@ func (l Cpp) Run(ctx context.Context, sb sandbox.Sandbox, config sandbox.RunConf
 
 var DefaultCompileArgs = []string{"-static", "-DONLINE_JUDGE", "-O2"}
 
-var Std11 = NewCpp("cpp11", "C++11", append(DefaultCompileArgs, "-std=c++11")...)
-var Std14 = NewCpp("cpp14", "C++14", append(DefaultCompileArgs, "-std=c++14")...)
-var Std17 = NewCpp("cpp17", "C++17", append(DefaultCompileArgs, "-std=c++17")...)
-var Std20 = NewCpp("cpp20", "C++20", append(DefaultCompileArgs, "-std=c++20")...)
+var Cpp11 = NewCpp("cpp11", "C++11", append(DefaultCompileArgs, "-std=c++11")...)
+var Cpp14 = NewCpp("cpp14", "C++14", append(DefaultCompileArgs, "-std=c++14")...)
+var Cpp17 = NewCpp("cpp17", "C++17", append(DefaultCompileArgs, "-std=c++17")...)
+var Cpp20 = NewCpp("cpp20", "C++20", append(DefaultCompileArgs, "-std=c++20")...)
 
 func init() {
-	language.DefaultRegistry.Register(Std11)
-	language.DefaultRegistry.Register(Std14)
-	language.DefaultRegistry.Register(Std17)
-	language.DefaultRegistry.Register(Std20)
+	language.DefaultRegistry.Register(Cpp11)
+	language.DefaultRegistry.Register(Cpp14)
+	language.DefaultRegistry.Register(Cpp17)
+	language.DefaultRegistry.Register(Cpp20)
 }
