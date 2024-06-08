@@ -1,5 +1,8 @@
 FROM ghcr.io/minhnhatnoe/isolate:latest
 
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
 RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ jammy main' >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get build-dep -y python3
