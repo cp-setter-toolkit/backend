@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 	"github.com/stretchr/testify/assert"
+	"github.com/thepluck/cp-setter-toolkit/pkg/sandbox"
 )
 
 func TestIsolate_Run(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"io"
 	"time"
 
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
 	"github.com/spf13/afero"
+	"github.com/thepluck/cp-setter-toolkit/pkg/memory"
 )
 
 // ErrorSandboxNotInitialized is returned when the sandbox is not initialized.

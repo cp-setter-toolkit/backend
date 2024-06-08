@@ -3,7 +3,7 @@ package sandbox
 import (
 	"time"
 
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
+	"github.com/thepluck/cp-setter-toolkit/pkg/memory"
 )
 
 // Verdict is the overall result of running a program.

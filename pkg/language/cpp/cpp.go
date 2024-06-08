@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/language"
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 	"github.com/spf13/afero"
+	"github.com/thepluck/cp-setter-toolkit/pkg/language"
+	"github.com/thepluck/cp-setter-toolkit/pkg/memory"
+	"github.com/thepluck/cp-setter-toolkit/pkg/sandbox"
 )
 
 type Cpp struct {

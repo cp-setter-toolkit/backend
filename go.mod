@@ -1,4 +1,4 @@
-module github.com/cp-setter-toolkit/cp-setter-toolkit
+module github.com/thepluck/cp-setter-toolkit
 
 go 1.22.4
 

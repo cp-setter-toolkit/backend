@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/language/cpp"
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
-	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
+	"github.com/thepluck/cp-setter-toolkit/pkg/language/cpp"
+	"github.com/thepluck/cp-setter-toolkit/pkg/memory"
+	"github.com/thepluck/cp-setter-toolkit/pkg/sandbox"
 )
 
 func TestRun(t *testing.T) {
