@@ -4,14 +4,20 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
+
 env:
   registry: ghcr.io
   image_name: judge-essential
 
 jobs:
-  push_to_registry:
-    name: Push image to Github Packages
+  build-and-push-image:
+    name: Build and push Docker image to GitHub Container Registry
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
