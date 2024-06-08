@@ -1,6 +1,6 @@
 FROM ghcr.io/minhnhatnoe/isolate:latest
 
-RUN deb-src http://archive.ubuntu.com/ubuntu/ jammy main
+RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ jammy main' >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get build-dep -y python2 python3
 RUN apt-get install --no-install-recommends -y \
