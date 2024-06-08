@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cp-setter-toolkit/backend/pkg/language/cpp"
-	"github.com/cp-setter-toolkit/backend/pkg/memory"
-	"github.com/cp-setter-toolkit/backend/pkg/sandbox"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/language/cpp"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 )
@@ -48,10 +48,10 @@ func TestRun(t *testing.T) {
 			stdin := bytes.NewBufferString("42\n")
 			stdout := &bytes.Buffer{}
 			config := sandbox.RunConfig{
-				Stdin: stdin,
-				Stdout: stdout,
-				Stderr: io.Discard,
-				MemLimit: 512 * memory.MiB,
+				Stdin:     stdin,
+				Stdout:    stdout,
+				Stderr:    io.Discard,
+				MemLimit:  512 * memory.MiB,
 				TimeLimit: 1 * time.Second,
 			}
 			stat, err := cpp.Cpp17.Run(context.TODO(), sb, config, file)

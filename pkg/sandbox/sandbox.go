@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/cp-setter-toolkit/backend/pkg/memory"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
 	"github.com/spf13/afero"
 )
 

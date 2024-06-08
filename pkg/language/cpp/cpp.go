@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cp-setter-toolkit/backend/pkg/language"
-	"github.com/cp-setter-toolkit/backend/pkg/memory"
-	"github.com/cp-setter-toolkit/backend/pkg/sandbox"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/language"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 	"github.com/spf13/afero"
 )
 

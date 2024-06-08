@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cp-setter-toolkit/backend/pkg/memory"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/memory"
 	"github.com/spf13/afero"
 )
 
@@ -123,10 +123,7 @@ func (sb *Isolate) Run(ctx context.Context, config RunConfig, name string, args 
 	cmd.Stdout = config.Stdout
 	cmd.Stderr = config.Stderr
 	cmd.Dir = config.WorkDir
-	err = cmd.Run()
-	if err != nil {
-		return IEStatus(), fmt.Errorf("failed to run command: %w", err)
-	}
+	_ = cmd.Run()
 
 	stat := Status{
 		Verdict: VerdictOK,

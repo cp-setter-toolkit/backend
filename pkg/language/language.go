@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/cp-setter-toolkit/backend/pkg/sandbox"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 )
 
 type BytesLike interface {

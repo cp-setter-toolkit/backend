@@ -4,12 +4,12 @@ import (
 	"context"
 	"io"
 
-	"github.com/cp-setter-toolkit/backend/pkg/language"
-	"github.com/cp-setter-toolkit/backend/pkg/sandbox"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/language"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 )
 
 type Python struct {
-	cmd   string
+	cmd  string
 	name string
 }
 
@@ -39,7 +39,7 @@ func (l Python) Run(ctx context.Context, sb sandbox.Sandbox, config sandbox.RunC
 		return nil, err
 	}
 
-	return sb.Run(ctx, config, "/usr/bin/" + l.cmd, file.Name())
+	return sb.Run(ctx, config, "/usr/bin/"+l.cmd, file.Name())
 }
 
 var Python27 = NewPython("python2.7", "Python 2.7")

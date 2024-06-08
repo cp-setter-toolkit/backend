@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cp-setter-toolkit/backend/pkg/sandbox"
+	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 	"github.com/stretchr/testify/assert"
 )
 

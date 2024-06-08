@@ -1,30 +1,21 @@
-FROM debian:bookworm-slim as isolate-builder
+FROM ghcr.io/minhnhatnoe/isolate:latest
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    build-essential pkg-config libsystemd-dev libcap-dev gcc
-
-WORKDIR /app
-COPY third_party/ ./third_party
-WORKDIR /app/third_party/isolate
-RUN make isolate isolate-check-environment isolate-cg-keeper
-
-FROM golang:1.22.4-bookworm
-
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    build-essential bash gcc g++ python3 pypy3
-
-WORKDIR /app/third_party/isolate
-COPY --from=isolate-builder /app/third_party /app/third_party
-RUN make install
+    gcc g++ python2.7 python3.10 pypy pypy3 \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY pkg/ ./pkg
 COPY go.mod go.sum ./
 
+RUN go mod download && go mod verify
+
 COPY compose/judge/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
-RUN go mod download && go mod verify
+COPY compose/judge/start /start
+RUN sed -i 's/\r$//g' /start
+RUN chmod +x /start
 
 ENTRYPOINT ["/entrypoint"]
