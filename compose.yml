@@ -2,8 +2,7 @@ services:
   judge:
     build:
       context: .
-      dockerfile: compose/judge/Dockerfile
+      dockerfile: compose/judge-essential/Dockerfile
     image: cp-setter-toolkit-judge
     privileged: true
     container_name: cp-setter-toolkit-judge
-    command: -- /start

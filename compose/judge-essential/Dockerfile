@@ -4,11 +4,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
 RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ jammy main' >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get build-dep -y python3
-RUN apt-get install --no-install-recommends -y \
-    ca-certificates gcc g++ wget && \
-    rm -rf /var/lib/apt/lists/*
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get build-dep -y python3 && \
+    apt-get install --no-install-recommends -y \
+    zlib1g-dev libffi-dev ca-certificates wget
 
 WORKDIR /app
 
