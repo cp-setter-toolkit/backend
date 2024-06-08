@@ -7,10 +7,6 @@ import (
 	"github.com/cp-setter-toolkit/cp-setter-toolkit/pkg/sandbox"
 )
 
-type BytesLike interface {
-	Bytes() []byte
-}
-
 // Language is the interface for programming languages.
 type Language interface {
 	Id() string

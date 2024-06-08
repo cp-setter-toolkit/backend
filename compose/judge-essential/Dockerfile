@@ -49,17 +49,8 @@ RUN tar -C /usr/local -xjf pypy3.10-v7.3.16-linux64.tar.bz2
 RUN rm pypy3.10-v7.3.16-linux64.tar.bz2
 ENV PATH=$PATH:/usr/local/pypy3.10-v7.3.16-linux64/bin
 
-COPY pkg/ ./pkg
-COPY go.mod go.sum ./
-
-RUN go mod download && go mod verify
-
 COPY compose/judge/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
-
-COPY compose/judge/start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
 
 ENTRYPOINT ["/entrypoint"]

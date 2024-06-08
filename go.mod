@@ -1,6 +1,6 @@
 module github.com/cp-setter-toolkit/cp-setter-toolkit
 
-go 1.22.3
+go 1.22.4
 
 require (
 	github.com/spf13/afero v1.11.0
