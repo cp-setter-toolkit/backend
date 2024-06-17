@@ -1,8 +1,30 @@
+volumes:
+  cp_setter_toolkit_postgres_data: {}
+  cp_setter_toolkit_postgres_data_backups: {}
+
 services:
   judge:
     build:
       context: .
-      dockerfile: compose/judge-essential/Dockerfile
+      dockerfile: compose/judge/Dockerfile
     image: cp-setter-toolkit-judge
     privileged: true
     container_name: cp-setter-toolkit-judge
+    depends_on:
+      - postgres
+    env_file:
+      - compose/judge/.env
+      - compose/postgres/.env
+    command: -- /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: compose/postgres/Dockerfile
+    image: cp_setter_toolkit_postgres
+    container_name: cp_setter_toolkit_postgres
+    volumes:
+      - cp_setter_toolkit_postgres_data:/var/lib/postgresql/data
+      - cp_setter_toolkit_postgres_data_backups:/backups
+    env_file:
+      - compose/postgres/.env

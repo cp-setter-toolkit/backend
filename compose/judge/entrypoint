@@ -68,6 +68,7 @@ else
     print "Skipping isolate-check-environment"
 fi
 
+# Execute command
 if [ $# -eq 0 ]; then
     print "No command to execute. Waiting for isolate-cg-keeper to finish."
     wait $DAEMON_PID
